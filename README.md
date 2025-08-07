@@ -5,7 +5,6 @@ A modern, robust Laravel application demonstrating CRUD operations with role-bas
 ## ✨ Features
 
 ✅ **Admin Authentication** - Complete auth system with Laravel Breeze
-
 ✅ **User Authentication** - Complete auth system with Laravel Sanctum
 🛡️ **Role-based Permissions** - Admin and User roles with [`UserTypeEnum`](app/Enums/UserTypeEnum.php)
 ✍️ **Product Management** - Full CRUD operations for products with factory seeding
@@ -15,13 +14,18 @@ A modern, robust Laravel application demonstrating CRUD operations with role-bas
 📊 **Dashboard Interface** - Clean, responsive dashboard with navigation
 🎯 **Clean Architecture** - Organized with Services, Traits, and Enums
 
+## 🌐 Deployment
+
+🚀 **Live Demo**: [https://grizi7.space/](https://grizi7.space/)
+🔗 **Base API URL**: [https://grizi7.space/api](https://grizi7.space/api)
+
 ## 📋 Requirements
 
-- PHP >= 8.2
-- Laravel 11.x
-- SQLite (included) / MySQL / MariaDB
-- Composer
-- Node.js & NPM (for asset compilation)
+* PHP >= 8.2
+* Laravel 11.x
+* SQLite (included) / MySQL / MariaDB
+* Composer
+* Node.js & NPM (for asset compilation)
 
 ## 💾 Installation
 
@@ -58,141 +62,139 @@ php artisan serve
 Simple-CRUD-with-Permission/
 ├── app/
 │   ├── Enums/
-│   │   └── UserTypeEnum.php       # User role enumeration (0=User, 1=Admin)
-│   ├── Http/Controllers/          # Application Controllers
-│   │   ├── Auth/                  # Authentication
-|   |   ├── Admin/                 # Admin
-|   |   └── Api/                   # Api
-Controllers
-│   ├── Models/                    # Eloquent Models (User, Product)
+│   │   └── UserTypeEnum.php
+│   ├── Http/Controllers/
+│   │   ├── Auth/
+|   |   ├── Admin/
+|   |   └── Api/
+│   ├── Models/
 │   ├── Notifications/
-│   │   └── WishlistUpdateNotification.php  # Email notifications
-│   ├── Providers/                 # Service Providers
-│   ├── Services/                  # Business Logic Services
-│   ├── Traits/                    # Reusable Traits
-│   └── View/                      # View Composers
+│   │   └── WishlistUpdateNotification.php
+│   ├── Providers/
+│   ├── Services/
+│   ├── Traits/
+│   └── View/
 ├── database/
-│   ├── database.sqlite            # SQLite database (included)
+│   ├── database.sqlite
 │   ├── factories/
-│   │   ├── ProductFactory.php     # Product model factory
-│   │   └── UserFactory.php        # User model factory
-│   ├── migrations/                # Database Migrations
-│   └── seeders/                   # Database Seeders
+│   │   ├── ProductFactory.php
+│   │   └── UserFactory.php
+│   ├── migrations/
+│   └── seeders/
 ├── resources/
-│   ├── css/app.css                # Application styles
-│   ├── js/                        # JavaScript files
+│   ├── css/
+│   ├── js/
 │   └── views/
-│       ├── auth/                  # Authentication views
-│       ├── components/            # Reusable Blade components
+│       ├── auth/
+│       ├── components/
 │       ├── dashboard/
-│       │   └── admins/            # Admin management views
+│       │   └── admins/
 │       ├── emails/
-│       │   └── wishlist_update.blade.php  # Email template
-│       ├── layouts/               # Layout templates
-│       ├── profile/               # User profile management
-│       ├── dashboard.blade.php    # Main dashboard
-│       └── welcome.blade.php      # Landing page
+│       │   └── wishlist_update.blade.php
+│       ├── layouts/
+│       ├── profile/
+│       ├── dashboard.blade.php
+│       └── welcome.blade.php
 └── routes/
-    ├── api.php                    # API Routes
-    ├── auth.php                   # Authentication Routes
-    ├── console.php                # Console Commands
-    └── web.php                    # Web Routes
-
+    ├── api.php
+    ├── auth.php
+    ├── console.php
+    └── web.php
 ```
 
 ## 🔐 Permission System
 
 ### User Roles (via [`UserTypeEnum`](app/Enums/UserTypeEnum.php))
-| Role  | Type | Description                           |
-|-------|------|---------------------------------------|
-| User  | 0    | Standard user - limited access       |
-| Admin | 1    | Administrator - full system access   |
+
+| Role  | Type | Description   |
+| ----- | ---- | ------------- |
+| User  | 0    | Standard user |
+| Admin | 1    | Administrator |
 
 ### Key Features
-- **Admin Management**: Full CRUD operations in [`dashboard/admins/`](resources/views/dashboard/admins/) views
-- **Profile Management**: Complete user profile system via [`profile/edit.blade.php`](resources/views/profile/edit.blade.php)
-- **Email Notifications**: Wishlist updates via [`WishlistUpdateNotification`](app/Notifications/WishlistUpdateNotification.php)
-- **Form Components**: Reusable UI components with validation
+
+* **Admin Management**: Full CRUD via [`dashboard/admins/`](resources/views/dashboard/admins/)
+* **Profile Management**: [`profile/edit.blade.php`](resources/views/profile/edit.blade.php)
+* **Email Notifications**: Wishlist updates via [`WishlistUpdateNotification`](app/Notifications/WishlistUpdateNotification.php)
+* **Reusable Form Components**
 
 ## 🛡️ Key Routes & Access Control
 
-### Authentication Routes
-Available via [`auth.php`](routes/auth.php):
-- Login/Logout with [`auth/login.blade.php`](resources/views/auth/login.blade.php)
-- Registration via [`auth/register.blade.php`](resources/views/auth/register.blade.php)
-- Password Reset functionality
-- Email Verification via [`auth/verify-email.blade.php`](resources/views/auth/verify-email.blade.php)
+### Authentication Routes (`routes/auth.php`)
+
+* Login: [`auth/login.blade.php`](resources/views/auth/login.blade.php)
+* Registration: [`auth/register.blade.php`](resources/views/auth/register.blade.php)
+* Password Reset
+* Email Verification: [`auth/verify-email.blade.php`](resources/views/auth/verify-email.blade.php)
 
 ### Protected Routes
-- **Admin Management**: Admin-only access to user management
-- **Product Management**: CRUD operations with proper authorization
-- **Dashboard**: [`dashboard.blade.php`](resources/views/dashboard.blade.php) for authenticated users
-- **Profile**: [`profile/edit.blade.php`](resources/views/profile/edit.blade.php) with update/delete functionality
+
+* Admin: Admin-only user management
+* Products: CRUD with authorization
+* Dashboard: [`dashboard.blade.php`](resources/views/dashboard.blade.php)
+* Profile: [`profile/edit.blade.php`](resources/views/profile/edit.blade.php)
 
 ## 📧 Email System
 
 ### Wishlist Notifications
-The application includes a complete email notification system:
 
-- **Notification Class**: [`WishlistUpdateNotification`](app/Notifications/WishlistUpdateNotification.php)
-- **Email Template**: [`emails/wishlist_update.blade.php`](resources/views/emails/wishlist_update.blade.php)
-- **Queue Support**: Implements `ShouldQueue` for background processing
+* **Class**: [`WishlistUpdateNotification`](app/Notifications/WishlistUpdateNotification.php)
+* **Template**: [`emails/wishlist_update.blade.php`](resources/views/emails/wishlist_update.blade.php)
+* **Queue Support**: Yes
 
 ```php
-// Example usage
 $user->notify(new WishlistUpdateNotification($user, $product));
 ```
 
 ## 🚀 Key Features Implemented
 
-### 1. Authentication System
-- Complete Laravel Breeze integration and Sanctum for API
-- User registration and login
-- Profile management with update/delete for Admins
+### 1. Auth System
+
+* Laravel Breeze + Sanctum
+* Registration, login, profile CRUD
 
 ### 2. Admin Panel
-Admin management system with:
-- User creation via [`dashboard/admins/create.blade.php`](resources/views/dashboard/admins/create.blade.php)
-- User editing via [`dashboard/admins/edit.blade.php`](resources/views/dashboard/admins/edit.blade.php)
-- Role assignment and management
-- Form validation and error handling
+
+* Admin creation, update, deletion
+* Role assignment
+* Form validation
 
 ### 3. Product Management
-- Product CRUD operations
-- Factory-based seeding via [`ProductFactory`](database/factories/ProductFactory.php)
-- Image handling and display
-- Wishlist functionality with notifications
+
+* CRUD
+* Image uploads
+* Factory seeders
+* Wishlist + notifications
 
 ## 🛠️ Development Notes
 
-- **Database**: SQLite included for easy setup at [`database/database.sqlite`](database/database.sqlite)
-- **Factories**: [`ProductFactory`](database/factories/ProductFactory.php) and [`UserFactory`](database/factories/UserFactory.php) for testing data
-- **Assets**: Compiled with Vite at [`public/build/`](public/build/)
-- **Styling**: Tailwind CSS with custom components
-- **Email**: HTML email templates with inline styling
+* **DB**: MySQL
+* **Seeders**: Users & Products
+* **Assets**: Built with Vite
+* **CSS**: Tailwind
+* **Email**: HTML with inline styles
 
 ## 🧑‍💻 Default Credentials
 
-Check your database seeders for default users. Typical setup includes:
-
-| Role    | Email Example         | Password | Access Level        |
-|---------|----------------------|----------|---------------------|
-| Admin   | admin@example.com    | password | Full system access  |
-| User    | user@example.com     | password | Limited access      |
+| Role  | Email                                         | Password | Access         |
+| ----- | --------------------------------------------- | -------- | -------------- |
+| Admin | [admin@example.com](mailto:admin@example.com) | password | Full access    |
+| User  | [user@example.com](mailto:user@example.com)   | password | Limited access |
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. Fork
+2. Create branch
+3. Commit
+4. Push
+5. PR
 
 ## 📄 License
 
-This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+MIT - [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
 
 ## 👤 Author
 
 **Grizi7**
-🔗 [Portfolio](https://grizi7.com)
+🌐 [Portfolio](https://grizi7.com)
+🚀 [Live Demo](https://grizi7.space)

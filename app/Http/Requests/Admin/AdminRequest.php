@@ -23,13 +23,13 @@ class AdminRequest extends FormRequest
                 'lowercase',
                 'email',
                 'max:255',
-                Rule::unique('users')->ignore($this->route('admin')->id),
+                Rule::unique('users')->ignore($this->route('admin')->id ?? null),
             ],
             'password' => [
-                $this->route('admin')->id ? 'nullable' : 'required',
+                $this->route('admin')?->id ? 'nullable' : 'required',
                 'string',
                 'min:8',
-                $this->route('admin')->id ? '' : 'confirmed',
+                $this->route('admin')?->id ? '' : 'confirmed',
             ],
             'role' => ['required', 'string', 'exists:roles,name'],
         ];
