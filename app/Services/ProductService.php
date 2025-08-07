@@ -6,6 +6,7 @@ namespace App\Services;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\WishlistUpdateNotification;
 
 class ProductService
 {
@@ -57,6 +58,7 @@ class ProductService
             $wishlistItem = $user->wishlistItems()->create(['product_id' => $product->id]);
         }
 
+        $user->notify(new WishlistUpdateNotification($user, $product));
         return $user->wishlistItems()->get();
     }
 }
