@@ -3,6 +3,8 @@
 namespace App\Traits;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 trait ResponseTrait
 {
@@ -22,5 +24,20 @@ trait ResponseTrait
             'message' => $message,
             'errors' => $errors
         ], $code);
+    }
+
+    public function respondWithCollection($collection, $message = 'data retrieved successfully', $modelResource): AnonymousResourceCollection
+    {
+        return forward_static_call([$modelResource, 'collection'], $collection)->additional([
+            'status' => true,
+            'message' => $message
+        ]);
+    }
+    public function respondWithResource($resource, $message = 'data retrieved successfully', $modelResource): JsonResource
+    {
+        return forward_static_call([$modelResource, 'make'], $resource)->additional([
+            'status' => true,
+            'message' => $message
+        ]);
     }
 }

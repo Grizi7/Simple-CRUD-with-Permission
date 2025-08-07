@@ -51,4 +51,9 @@ class User extends Authenticatable
             'type' => UserTypeEnum::class,
         ];
     }
+
+    public function wishlistItems()
+    {
+        return $this->hasMany(WishlistItem::class);
+    }
 }

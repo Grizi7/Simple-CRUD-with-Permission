@@ -20,7 +20,7 @@ class ProductService
     public function createProduct(array $data)
     {
         if (isset($data['image'])) {
-            $data['image'] = $data['image']->store('products', 'public');
+            $data['image'] = $data['image']->store('images/products', 'public');
         }
         $data['slug'] = Str::slug($data['name']);
         return Product::create($data);
@@ -32,7 +32,7 @@ class ProductService
             if ($product->image) {
                 Storage::disk('public')->delete($product->image);
             }
-            $data['image'] = $data['image']->store('products', 'public');
+            $data['image'] = $data['image']->store('images/products', 'public');
         }
         $data['slug'] = Str::slug($data['name']);
         return $product->update($data);
@@ -44,5 +44,19 @@ class ProductService
             Storage::disk('public')->delete($product->image);
         }
         $product->delete();
+    }
+
+    public function wishlist(Product $product)
+    {
+        $user = auth()->user()->load('wishlistItems');
+        $wishlistItem = $user->wishlistItems()->where('product_id', $product->id)->first();
+        
+        if ($wishlistItem) {
+            $wishlistItem->delete();
+        }else {
+            $wishlistItem = $user->wishlistItems()->create(['product_id' => $product->id]);
+        }
+
+        return $user->wishlistItems()->get();
     }
 }
